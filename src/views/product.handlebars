@@ -1,0 +1,22 @@
+<H1> {{this.title}}</H1>
+<p>Price {{this.price}}</p>
+<p>Description {{this.description}}</p>
+<p>Stock {{this.stock}}</p>
+
+<form id="form">
+    <label for="ID">ID del producto</label>
+    <input type="text" name="id" id="id" value ={{this._id}}>
+    <br>
+    <label for="ID">Quantity</label>
+    <input type="text" name="qty" id="qty">
+    
+    <button type="submit">ADD TO CART</button>
+    <br>
+</form>
+
+<a href="/api/products">BACK TO PRODUCTS</a>
+
+<a href="/api/carts/viewcart/63d9d629fc420e0e4f35bb85">VIEW CART</a>
+
+<script src="/js/cart.js"></script>
+

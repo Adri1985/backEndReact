@@ -1,0 +1,45 @@
+
+
+<H1>PRODUCTS</H1>
+
+<h2>Welcome {{user.email}}</h2>
+<h3>Role: {{user.role}}</h3>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each payload}}
+                <tr>
+                    <td>{{this.title}}</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.stock}}</td>
+                    <td><a href="/api/products/{{this._id}}">Details</a></td>
+                </tr>
+                
+            {{/each}}
+        </tbody>
+    </table>
+
+    <div>
+        {{#if hasPrevPage}}
+            <a href="{{prevLink}}">Anterior</a>
+        {{/if}}
+        {{#if hasNextPage}}
+            <a href="{{nextLink}}">Siguiente</a>
+        {{/if}}
+    </div>
+   
+    <form action="/api/session/logout" method="get">
+
+         <input type="submit" value="Log Out">
+    </form>
+</div>
