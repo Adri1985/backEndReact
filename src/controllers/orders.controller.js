@@ -1,10 +1,12 @@
 import Order from '../DAO/mongo/orders.mongo.js'
 import User from '../DAO/mongo/users.mongo.js'
 import Store from '../DAO/mongo/stores.mongo.js'
+import Cart from '../DAO/mongo/stores.mongo.js'
 
 const userService = new User()
 const orderService = new Order()
 const storeService = new Store()
+const cartService = new Cart()
 
 export const getOrders = async(req,res)=>{
     const result = await orderService.get()
@@ -28,7 +30,7 @@ export const createOrder = async(req,res)=>{
     
     //lista de los productos del Store
     const actualOrders = store.products.filter(product =>{
-        product.include(product.id)
+        product.include(products.id)
     })
 
     const sum = actualOrders.reduce((sum, product)=>{
@@ -47,7 +49,31 @@ export const createOrder = async(req,res)=>{
     const result = await orderService.create(order)
     user.orders.push(result._id)
     await userService.updateUser(uid, user)
-    res.json({status:succes, result:{result}})
+    
+    
+     //logica para devolver en el carrito los productos sin stock
+
+     const cart = await cartService.getOneByID(user.cart)
+
+     const cartProductsReturn = cart.products.filter((prod)=>{
+        !prod.include(store.products._id)
+     })
+
+     cart.products = cartProductsReturn
+
+     const resultCart = await cartService.updateOne({_id: cart._id, cart})
+
+    
+    //logica para stock del store
+    const remainingStock = store.products.filter(product =>{
+        product._id == actualOrders.products._id
+    })
+    await storeService.updateStore(store._id, remainingStock )
+   
+
+
+
+    res.json({status:succes, result:{resultCart}})
 }
 
 export const resolveOrder = async(req,res)=>{

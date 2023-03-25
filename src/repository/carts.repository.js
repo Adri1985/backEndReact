@@ -6,7 +6,7 @@ export default class CartRepository {
     }
 
     get = async() => {
-        return await this.dao.get()
+        return await this.dao.getAll()
     }
 
  
@@ -15,8 +15,8 @@ export default class CartRepository {
         return await this.dao.getOne(id)
     }
 
-    updateOne = async(id, updProduct)=>{
-        return await this.dao.updateOne(id, updProduct)
+    updateOne = async(id, updCart)=>{
+        return await this.dao.updateOne(id, updCart)
     }
 
 

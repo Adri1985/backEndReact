@@ -8,7 +8,7 @@ class CartManager{
     }
 
     getAll = async() =>{
-        const carts = await this.cartService.getAll()
+        const carts = await this.cartService.get()
         return carts
      }
     
@@ -23,8 +23,13 @@ class CartManager{
     }
 
     addProductToCart = async( cartID, productID, qty) =>{
-        const cart = this.getOne(cartID)
-        const result = await cartService.updateOne({_id: cartID}, cart)
+        console.log("product id ", productID)
+        console.log("cartID", cartID)
+        const cart = await this.getOne(cartID)
+        console.log("cart en manager", cart)
+        cart.products.push({product: productID, quantity: qty||1})
+        console.log("cart en manager", cart)
+        const result = await this.cartService.updateOne({_id: cartID}, cart)
         return (result)
     }   
  
