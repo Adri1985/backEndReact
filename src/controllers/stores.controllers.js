@@ -26,10 +26,21 @@ export const createStore = async(req,res)=>{
 }
 
 export const addProduct = async(req,res)=>{
-    const product = req.body
+    const productParam = req.params.pid
+
+    console.log("productParam", productParam)
     const {sid} = req.params
+    let found = 0
     const store = await storeService.getOneByID(sid)
-    store.products.push(product)
+
+    for (let i = 0; i< store.products.length; i++){
+        if(store.products[i].product == productParam){
+            store.products[i].quantity += 1
+            found = 1
+        }
+    } 
+    
+    if (found == 0) store.products.push({product:productParam, quantity:1 })
     const result = await storeService.updateStore(sid, store)
     res.send({status:'succes', result:{}})
 }

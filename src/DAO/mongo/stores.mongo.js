@@ -17,7 +17,7 @@ export default class Store {
     }
 
     updateStore = async(id, store)=>{
-        const result = await StoreModel.updateOne({_id, id}, {$set: store})
+        const result = await StoreModel.updateOne({_id: id}, {$set: store})
         return result
 
     }
