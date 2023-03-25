@@ -78,7 +78,9 @@ class CartManager{
     } 
 
     deleteOne = async(cid)=>{
-        const result = this.cartService.deleteOne(cid)
+        let cartFound = await this.getOne(cid)
+        cartFound.products=[]
+        const result = this.cartService.updateOne(cid, cartFound)
         return result
     }
    

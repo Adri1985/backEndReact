@@ -5,7 +5,7 @@ const userService = new User()
 export const getUsers = async(req,res)=>{
     const result = await userService.get() 
     if (!result) return res.status(500).send({status:'error', error:'error getting users'})
-    res.json({status:succes, result:{result}})
+    res.json({status:'succes', result:{result}})
 }
 
 export const getUserByID = async(req,res)=>{

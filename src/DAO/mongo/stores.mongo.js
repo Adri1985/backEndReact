@@ -1,4 +1,4 @@
-import StoreModel from "./models/stores.model";
+import StoreModel from "./models/stores.model.js";
 
 export default class Store {
     constructor() {}

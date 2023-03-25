@@ -15,8 +15,8 @@ import { passportCall } from './utils.js'
 import cookieParser from 'cookie-parser'
 
 import usersRouter from './routes/users.router.js'
-import ordersRouter from './routes/users.router.js'
-import storesRouter from './routes/users.router.js'
+import ordersRouter from './routes/orders.router.js'
+import storesRouter from './routes/stores.router.js'
 
 
 import {Server} from 'socket.io'

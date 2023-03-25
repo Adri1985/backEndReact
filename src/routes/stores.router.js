@@ -1,11 +1,15 @@
 import {Router} from 'express'
 
-import {getUsers, getUserByID, createUser} from '../controllers/users.controller.js'
+import {getStores, getStoreByID, createStore, addProduct} from '../controllers/stores.controllers.js'
 
-router.get('/', getUsers)
+const router = Router()
 
-router.get('/:uid', getUserByID)
+router.get('/', getStores)
 
-router.post('/', createUser)
+router.get('/:sid', getStoreByID)
+
+router.post('/', createStore)
+
+router.post('/:sid/products/:pid', addProduct)
 
 export default router

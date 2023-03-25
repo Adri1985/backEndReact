@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const schema = new monggose.Schema({
+const schema = new mongoose.Schema({
     number: Number,
     store:{
         type: mongoose.SchemaTypes.ObjectId,

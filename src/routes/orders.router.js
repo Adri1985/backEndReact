@@ -1,6 +1,8 @@
 import {Router} from 'express'
 
-import {getOrders, getOrderByID, createOrder} from '../controllers/rders.controller.js'
+import {getOrders, getOrderByID, createOrder} from '../controllers/orders.controller.js'
+
+const router = Router()
 
 router.get('/', getOrders)
 
