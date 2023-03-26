@@ -26,6 +26,12 @@ export const getOrderByID = async(req,res)=>{
 
 export const createOrder = async(req,res)=>{
     console.log("body", req.body)
+
+    // asi va a venir la orden del body
+    // {"user":"641e3059fc08bcffaf3f7eea", 
+    // "store":"641fcb0711da07bac4708d41", 
+    // "products": [{"_id":"641dec1d396d5837a95ba21b","quantity":3,
+    // "precio":100}]}
     const {user: uid, store: sid, products}= req.body
     const user = await userService.getOneByID(uid)
     const store = await storeService.getOneByID(sid)
@@ -37,11 +43,6 @@ export const createOrder = async(req,res)=>{
     console.log("user", user)
     console.log("products", products)
 
-    // products: [
-    //     {_id:123, quantity:1},
-    //     {_id:333, quantity:2}
-    // ]
-    //mi logica
     for(let i = 0; i< products.length; i++){
 
         let productStore = store.products.find(prod=>
@@ -71,11 +72,7 @@ export const createOrder = async(req,res)=>{
     }
 
     store.products = storeProducts
-
-    
     //lista de los productos del Store
-    
-
     const orderNumber = Date.now()+Math.floor(Math.random()*10000+1)
     const order = {
         number:orderNumber,
@@ -88,12 +85,6 @@ export const createOrder = async(req,res)=>{
     const result = await orderService.create(order)
     user.orders.push(result._id)
     await userService.updateUser(uid, user)
-    
-    
-     //logica para devolver en el carrito los productos sin stock
-
-
-     //const resultCart = await cartService.updateOne({_id: user._id, cart})
 
     await storeService.updateStore(store._id, store)
    
