@@ -32,8 +32,10 @@ export const addProduct = async(req,res)=>{
     const {sid} = req.params
     let found = 0
     const store = await storeService.getOneByID(sid)
+    console.log("store", store)
 
     for (let i = 0; i< store.products.length; i++){
+        console.log("entra", store.products.length)
         if(store.products[i].product == productParam){
             store.products[i].quantity += 1
             found = 1

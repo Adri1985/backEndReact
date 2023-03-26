@@ -2,6 +2,7 @@ import Order from '../DAO/mongo/orders.mongo.js'
 import User from '../DAO/mongo/users.mongo.js'
 import Store from '../DAO/mongo/stores.mongo.js'
 import Cart from '../DAO/mongo/stores.mongo.js'
+import mongoose from 'mongoose'
 
 const userService = new User()
 const orderService = new Order()
@@ -24,26 +25,64 @@ export const getOrderByID = async(req,res)=>{
 }
 
 export const createOrder = async(req,res)=>{
+    console.log("body", req.body)
     const {user: uid, store: sid, products}= req.body
     const user = await userService.getOneByID(uid)
     const store = await storeService.getOneByID(sid)
+    let suma = 0
+    let finalorder =[]
+    let storeProducts =[]
+
+    console.log("store", store)
+    console.log("user", user)
+    console.log("products", products)
+
+    // products: [
+    //     {_id:123, quantity:1},
+    //     {_id:333, quantity:2}
+    // ]
+    //mi logica
+    for(let i = 0; i< products.length; i++){
+
+        let productStore = store.products.find(prod=>
+            prod.product.toString() == products[i]._id)
+        console.log("productStore", productStore)
+        console.log("product en for", mongoose.Types.ObjectId(products[i]._id))
+
+        if(productStore){ // encontro el producto en stock
+            if (productStore.quantity >= products[i].quantity){
+                
+                //hay stock
+                productStore.quantity -= products[i].quantity
+                suma += products[i].precio*products[i].quantity
+                products[i].quantity = 0
+                finalorder.push(products[i])
+
+            }else{//no alcanza pero genera la orden con lo que hay
+                suma += productStore.precio*productStore.quantity
+                products[i].quantity -= productStore.quantity
+                productStore.quantity =0 //queda sin stock
+                finalorder.push(productStore)
+            }
+            
+        }
+        storeProducts.push(productStore)
+
+    }
+
+    store.products = storeProducts
+
     
     //lista de los productos del Store
-    const actualOrders = store.products.filter(product =>{
-        product.include(products.id)
-    })
-
-    const sum = actualOrders.reduce((sum, product)=>{
-        sum += product.price; return sum
-    },0)
+    
 
     const orderNumber = Date.now()+Math.floor(Math.random()*10000+1)
     const order = {
         number:orderNumber,
         store: sid,
         status:'PENDING',
-        products: actualOrders.map(p=>p.id),
-        totalPrice: sum
+        products: finalorder,
+        totalPrice: suma
     }
 
     const result = await orderService.create(order)
@@ -53,27 +92,15 @@ export const createOrder = async(req,res)=>{
     
      //logica para devolver en el carrito los productos sin stock
 
-     const cart = await cartService.getOneByID(user.cart)
 
-     const cartProductsReturn = cart.products.filter((prod)=>{
-        !prod.include(store.products._id)
-     })
+     //const resultCart = await cartService.updateOne({_id: user._id, cart})
 
-     cart.products = cartProductsReturn
-
-     const resultCart = await cartService.updateOne({_id: cart._id, cart})
-
-    
-    //logica para stock del store
-    const remainingStock = store.products.filter(product =>{
-        product._id == actualOrders.products._id
-    })
-    await storeService.updateStore(store._id, remainingStock )
+    await storeService.updateStore(store._id, store)
    
 
 
 
-    res.json({status:succes, result:{resultCart}})
+    res.json({status:'succes', result:{products}})
 }
 
 export const resolveOrder = async(req,res)=>{

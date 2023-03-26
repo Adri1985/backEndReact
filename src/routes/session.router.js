@@ -2,13 +2,15 @@ import {Router} from 'express'
 import passport from 'passport'
 import {createHash, generateToken} from '../utils.js'
 import { validateRole, passportCall } from '../utils.js'
+import User from '../DAO/mongo/users.mongo.js'
 const router = Router()
 
 
 
 router.get('/current', passportCall('jwt'), validateRole('user'), async(req,res)=>{
     console.log("req.user en current",req.user)
-    res.json({user:req.user.user})
+    const userDTO = new User()
+    res.json(userDTO.getOneByEmail(req.user.email))
 })
 //Vista para registrar usuarios
 router.get('/register', (req,res)=>{

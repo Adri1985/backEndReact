@@ -1,5 +1,6 @@
 import UserModel from "../mongo/models/user.model.js"
 import CartModel from "../mongo/models/cart.model.js"
+import StoreModel from "../mongo/models/cart.model.js"
 
 export default class User {
     constructor() {}
@@ -24,8 +25,8 @@ export default class User {
         return await UserModel.findOne({ email }).lean().exec()
     }
 
-    updateUser = async(id, User)=>{
-        const result = await StoreModel.updateOne({_id, id}, {$set: store})
+    updateUser = async(id, store)=>{
+        const result = await StoreModel.updateOne({_id: id}, {$set: store})
         return result
 
     }
