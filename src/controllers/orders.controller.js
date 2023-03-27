@@ -91,7 +91,7 @@ export const createOrder = async(req,res)=>{
 
 
 
-    res.json({status:'succes', result:{products}})
+    res.json({status:'succes', result:{products}})// devuelve un objeto con la estructura del carrito con lo que no tuvo stock
 }
 
 export const resolveOrder = async(req,res)=>{
