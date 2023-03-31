@@ -33,9 +33,6 @@ router.get('/login', (req, res)=>{
 
 
 
-const isAdmin=(user)=>{
-    return(user.email=='adminCoder@coder.com'&& user.password=='adminCod3r123')
-}
 
 
 //API para login usando estrategia JWT. Devuelve el token generado a traves de la cookie especificada en JWT_COOKIE_NAME

@@ -4,7 +4,7 @@ import cartRouter from './routes/cart.router.js'
 import mongoose from 'mongoose'
 import handlebars from 'express-handlebars'
 import __dirname from './utils.js'
-import routerViews from './routes/views.router.js'
+import routerViews from './routes/chat.router.js'
 import MessageManager from './manager/message.manager.js'
 import sessionRouter from './routes/session.router.js'
 import session from "express-session"
@@ -17,6 +17,7 @@ import cookieParser from 'cookie-parser'
 import usersRouter from './routes/users.router.js'
 import ordersRouter from './routes/orders.router.js'
 import storesRouter from './routes/stores.router.js'
+import mockingProductsRouter from './routes/mokingProducts.router.js'
 
 
 import {Server} from 'socket.io'
@@ -55,13 +56,14 @@ app.use('/api/session', sessionRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/orders', ordersRouter)
 app.use('/api/stores', storesRouter)
+app.use('/api/mockingproducts', mockingProductsRouter)
 
 
 console.log("sadsad")
 //app.use('/api/products',productsRouter)
 
-app.use('/api/products',passportCall('jwt'),productsRouter)
-//app.use('/api/products',productsRouter)
+//app.use('/api/products',passportCall('jwt'),productsRouter)
+app.use('/api/products',productsRouter)
 app.use('/api/carts', cartRouter)
 //app.use('/api/pets', petsRouter)
 

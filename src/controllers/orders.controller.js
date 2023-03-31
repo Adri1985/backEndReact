@@ -52,12 +52,14 @@ export const createOrder = async(req,res)=>{
 
         if(productStore){ // encontro el producto en stock
             if (productStore.quantity >= products[i].quantity){
-                
+                console.log(productStore.quantity)
+                console.log(products[i].quantity)
+
                 //hay stock
                 productStore.quantity -= products[i].quantity
                 suma += products[i].precio*products[i].quantity
-                products[i].quantity = 0
                 finalorder.push(products[i])
+                products[i].quantity = 0
 
             }else{//no alcanza pero genera la orden con lo que hay
                 suma += productStore.precio*productStore.quantity
@@ -65,13 +67,19 @@ export const createOrder = async(req,res)=>{
                 productStore.quantity =0 //queda sin stock
                 finalorder.push(productStore)
             }
+            console.log("finalOrder", finalorder)
             
         }
-        storeProducts.push(productStore)
+        console.log("productStore", productStore)
+        const index = store.products.findIndex (el => el.product == productStore.product)
+        console.log("index", index)
+        store.products[index] = productStore
+        console.log("store", store)
+      
 
     }
 
-    store.products = storeProducts
+   
     //lista de los productos del Store
     const orderNumber = Date.now()+Math.floor(Math.random()*10000+1)
     const order = {
@@ -83,6 +91,7 @@ export const createOrder = async(req,res)=>{
     }
 
     const result = await orderService.create(order)
+    console.log("result create order", result)
     user.orders.push(result._id)
     await userService.updateUser(uid, user)
 

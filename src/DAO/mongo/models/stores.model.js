@@ -19,3 +19,5 @@ const schema = new mongoose.Schema({
 const StoreModel = mongoose.model('Stores', schema)
 
 export default StoreModel
+
+
