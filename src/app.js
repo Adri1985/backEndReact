@@ -18,6 +18,8 @@ import usersRouter from './routes/users.router.js'
 import ordersRouter from './routes/orders.router.js'
 import storesRouter from './routes/stores.router.js'
 import mockingProductsRouter from './routes/mokingProducts.router.js'
+import errorHandler from './middlewares/error.js'
+
 
 
 import {Server} from 'socket.io'
@@ -56,7 +58,7 @@ app.use('/api/session', sessionRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/orders', ordersRouter)
 app.use('/api/stores', storesRouter)
-app.use('/api/mockingproducts', mockingProductsRouter)
+app.use('/api/mockingproducts',mockingProductsRouter)
 
 
 console.log("sadsad")
@@ -66,6 +68,7 @@ console.log("sadsad")
 app.use('/api/products',productsRouter)
 app.use('/api/carts', cartRouter)
 //app.use('/api/pets', petsRouter)
+app.use(errorHandler)
 
 console.log("sadsad")
 

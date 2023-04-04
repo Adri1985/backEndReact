@@ -1,3 +1,7 @@
+import CustomError from '../services/custom_error.js';
+import EErors from '../services/enums.js';
+import {generateProductErrorInfo} from '../services/info.js';
+
 import ProductManager from '../manager/product.manager.js'
 
 const productManager = new ProductManager(); 
@@ -21,6 +25,14 @@ export const getOne = async(req,res)=>{
 export const createOne = async(req,res) =>{
     const product = req.body.formData
     console.log("req.body en product", req.body)
+    if(!product.modelo){
+        CustomError.createError({
+            name:"Product creation error",
+            cause: generateproductErrorInfo({product}),
+            message: "Error trying to create product",
+            code: EErors.INVALID_TYPES_ERROR
+        })
+    }
     const result = await productManager.createOne(product)
     res.json(result)
 }
