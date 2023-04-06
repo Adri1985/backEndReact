@@ -27,6 +27,6 @@ addForm.addEventListener("submit", async (e) => {
           })
       })
 
-      console.log("llega aca")
+      
       
   })

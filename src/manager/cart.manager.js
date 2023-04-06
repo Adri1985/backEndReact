@@ -13,7 +13,7 @@ class CartManager{
      }
     
     createOne = async() =>{
-        console.log("manager")
+        
         const result = await this.cartService.createOne()
         return result
         }   
@@ -23,18 +23,18 @@ class CartManager{
     }
 
     addProductToCart = async( cartID, productID, qty) =>{
-        console.log("product id ", productID)
-        console.log("cartID", cartID)
+        
+        
         const cart = await this.getOne(cartID)
-        console.log("cart en manager", cart)
+        
         cart.products.push({product: productID, quantity: qty||1})
-        console.log("cart en manager", cart)
+        
         const result = await this.cartService.updateOne({_id: cartID}, cart)
         return (result)
     }   
  
     getOne = async(id) => {
-        console.log("manager", id)
+        
         const result = await this.cartService.getOne(id) 
         return result
     }

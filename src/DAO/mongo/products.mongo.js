@@ -24,7 +24,7 @@ export default class Product {
     }
 
     createOne = async(product) =>{
-        console.log("Product en mongo", product)
+        
         const result = await ProductModel.create(product)
         return result
     }

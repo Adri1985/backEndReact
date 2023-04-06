@@ -25,7 +25,7 @@ export const getOrderByID = async(req,res)=>{
 }
 
 export const createOrder = async(req,res)=>{
-    console.log("body", req.body)
+    
 
     // asi va a venir la orden del body
     // {"user":"641e3059fc08bcffaf3f7eea", 
@@ -39,21 +39,21 @@ export const createOrder = async(req,res)=>{
     let finalorder =[]
     let storeProducts =[]
 
-    console.log("store", store)
-    console.log("user", user)
-    console.log("products", products)
+    
+    
+    
 
     for(let i = 0; i< products.length; i++){
 
         let productStore = store.products.find(prod=>
             prod.product.toString() == products[i]._id)
-        console.log("productStore", productStore)
-        console.log("product en for", mongoose.Types.ObjectId(products[i]._id))
+        
+        
 
         if(productStore){ // encontro el producto en stock
             if (productStore.quantity >= products[i].quantity){
-                console.log(productStore.quantity)
-                console.log(products[i].quantity)
+                
+                
 
                 //hay stock
                 productStore.quantity -= products[i].quantity
@@ -67,14 +67,14 @@ export const createOrder = async(req,res)=>{
                 productStore.quantity =0 //queda sin stock
                 finalorder.push(productStore)
             }
-            console.log("finalOrder", finalorder)
+            
             
         }
-        console.log("productStore", productStore)
+        
         const index = store.products.findIndex (el => el.product == productStore.product)
-        console.log("index", index)
+        
         store.products[index] = productStore
-        console.log("store", store)
+        
       
 
     }
@@ -91,7 +91,7 @@ export const createOrder = async(req,res)=>{
     }
 
     const result = await orderService.create(order)
-    console.log("result create order", result)
+    
     user.orders.push(result._id)
     await userService.updateUser(uid, user)
 

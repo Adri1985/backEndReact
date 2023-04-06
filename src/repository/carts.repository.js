@@ -11,7 +11,7 @@ export default class CartRepository {
 
  
     getOne = async(id)=>{
-        console.log("repository", id)
+        
         return await this.dao.getOne(id)
     }
 
@@ -21,7 +21,7 @@ export default class CartRepository {
 
 
     createOne = async() => {
-        console.log("repository")
+        
         const dataToInsert = new CartDTO()
 
         return await this.dao.createOne()

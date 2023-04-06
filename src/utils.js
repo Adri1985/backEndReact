@@ -42,8 +42,8 @@ export const authToken = (req,res,next) => {
 }
 
 export const validateRole = role => (req,res, next) =>{
-    console.log("req.user en validate role", req.user)
-    console.log("user role", req.user.user.role)
+    
+    
     if(req.user.user.role === role)return next()
     return res.status(403).send({error: 'Only Admin role can create products'})
 }
@@ -51,12 +51,12 @@ export const validateRole = role => (req,res, next) =>{
 
 //solo extrae la cookie
 // export const extractCookie = req => {
-//     console.log("extract cookies", req.cookies)
+//     
 //     return (req && req.cookies)? req.cookies.JWT_COOKIE_NAME : null
 // }
 
 export const extractCookie = req => {
-       console.log("extract cookies", req.headers.authorization)
+       
          return (req && req.headers.authorization)? req.headers.authorization : null
      }
 

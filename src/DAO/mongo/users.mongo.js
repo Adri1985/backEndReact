@@ -12,7 +12,7 @@ export default class User {
     create = async(data) => {
         const cart = await CartModel.create({products:[]})
         data.cart = cart._id
-        console.log("Data user y cart", data)
+        
         await UserModel.create(data)
         return true
     }

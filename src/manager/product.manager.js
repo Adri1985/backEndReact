@@ -19,7 +19,7 @@ class ProductManager{
     }   
     // constructor por objeto Product
     validateProduct = (product) =>{
-        console.log("product ", product)
+        
         const {id, marca, modelo, tipo, rango, topFeature1, topFeature2, topFeature3, imageName, liked, stock, onCart} = product
         //return (id&& marca&& modelo&& tipo&& rango&& topFeature1&& topFeature2&& topFeature3&& imageName&& liked&& stock&& onCart)
         return true
@@ -31,7 +31,7 @@ class ProductManager{
             return result
         }
         else{
-            console.log("all fields are mandatory, product not added")
+            
             return({})
         }
     }  

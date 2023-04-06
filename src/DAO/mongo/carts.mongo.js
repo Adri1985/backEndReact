@@ -10,9 +10,9 @@ export default class Cart{
     }
 
     createOne = async()=>{
-        console.log("mongo")
+        
         const result = await CartModel.create({products:[]})
-        console.log("result mongo", result)
+        
         return result
     }
 
@@ -31,7 +31,7 @@ export default class Cart{
     }
 
     getOne = async(id)=>{
-        console.log("mongo", id)
+        
         const mongooseCartID = mongoose.Types.ObjectId(id)
         const result = await CartModel.findOne({_id: mongooseCartID}).lean().exec()
         return result

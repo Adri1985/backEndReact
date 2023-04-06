@@ -7,12 +7,12 @@ import ProductManager from '../manager/product.manager.js'
 const productManager = new ProductManager(); 
 
 export const getAll =async(req,res) =>{
-    console.log("User en endpoint", req.user)
+    
     const result =await productManager.getAll(req.query)
-    console.log("result del manager get all ", result)
+    
     const payload ={products:result, user:req.user}
-    console.log(result)
-    console.log("payload", payload)
+    
+    
     res.json(payload)
 }
 
@@ -24,7 +24,7 @@ export const getOne = async(req,res)=>{
 
 export const createOne = async(req,res) =>{
     const product = req.body.formData
-    console.log("req.body en product", req.body)
+    
     if(!product.modelo){
         CustomError.createError({
             name:"Product creation error",

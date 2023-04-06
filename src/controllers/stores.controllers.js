@@ -3,7 +3,7 @@ import Store from '../DAO/mongo/stores.mongo.js'
 const storeService = new Store()
 
 export const getStores = async(req,res)=>{
-    console.log("stores controller")
+    
     const result = await storeService.get()
     if (!result) return res.status(500).send({status:'error', error:'error getting stores'})
     res.json({status:'succes', result:{result}})
@@ -28,14 +28,14 @@ export const createStore = async(req,res)=>{
 export const addProduct = async(req,res)=>{
     const productParam = req.params.pid
 
-    console.log("productParam", productParam)
+    
     const {sid} = req.params
     let found = 0
     const store = await storeService.getOneByID(sid)
-    console.log("store", store)
+    
 
     for (let i = 0; i< store.products.length; i++){
-        console.log("entra", store.products.length)
+        
         if(store.products[i].product == productParam){
             store.products[i].quantity += 1
             found = 1

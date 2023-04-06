@@ -20,10 +20,16 @@ import storesRouter from './routes/stores.router.js'
 import mockingProductsRouter from './routes/mokingProducts.router.js'
 import errorHandler from './middlewares/error.js'
 
+import loggerRouter from './routes/loggerTest.router.js'
+
+import { addLogger } from './utils/logger.js'
 
 
 import {Server} from 'socket.io'
 import cors from 'cors'
+
+
+
 
 const app = express()
 const URI = "mongodb+srv://ecommerce_main:ehq@ecommerce.iv6wj6x.mongodb.net"
@@ -33,7 +39,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use('/static', express.static('public'))
 app.use(cookieParser())
-console.log("sadsad")
+
 
 // Config engine templates
 app.engine('handlebars', handlebars.engine())
@@ -51,17 +57,18 @@ app.use(passport.session())
 //  });
 
 app.use(cors())
-console.log("sadsad")
+
 app.use(express.static(__dirname+'/public'))
 app.use('/', routerViews)
 app.use('/api/session', sessionRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/orders', ordersRouter)
 app.use('/api/stores', storesRouter)
+app.use('/api/loggerTest', loggerRouter)
 app.use('/api/mockingproducts',mockingProductsRouter)
 
 
-console.log("sadsad")
+
 //app.use('/api/products',productsRouter)
 
 //app.use('/api/products',passportCall('jwt'),productsRouter)
@@ -69,27 +76,30 @@ app.use('/api/products',productsRouter)
 app.use('/api/carts', cartRouter)
 //app.use('/api/pets', petsRouter)
 app.use(errorHandler)
+app.use(addLogger)
 
-console.log("sadsad")
+
+
+
 
 const messages =[]
 mongoose.set('strictQuery', false)
 mongoose.connect(URI, {dbName: DB_NAME}, error => {
     if (error) {
-        console.log('No se pudo conectar a la DB:  ', error);
+        
         return
     }
-    console.log('DB connected!');
+    
 
     // Corriendo el servidor
-    const server = app.listen(8080, () => console.log('Server listening...'))
+    const server = app.listen(8080, () => console.log("listening..."))
     const io = new Server(server)
     io.on('connection', socket => {
-        console.log('New client connected');
+        
     
         socket.on('message', data => {
             messages.push(data)
-            console.log("data", data)
+            
             new MessageManager().addMsg(data)
             io.emit('logs', messages)
         })

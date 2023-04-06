@@ -9,15 +9,15 @@ export const getAll= async(req,res)=>{
     res.json(result)
 }
 export const getOne= async(req,res)=>{
-    console.log("req.params", req.params)
+    
     const cid = req.params.id
-    console.log("controller",cid)
+    
     const result = await cartManager.getOne(cid)
     res.json(result)
 }
 
 export const createOne=async(req,res)=>{
-    console.log("controller")
+    
     const result = await cartManager.createOne()
     res.json(result)
 }

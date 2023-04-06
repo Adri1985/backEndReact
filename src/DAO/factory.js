@@ -6,7 +6,7 @@ export let Message
 export let Product
 export let User
 
-console.log(`PERSISTENCE [${config.persistence}]`);
+
 switch (config.persistence) {
     case 'FILE':
         
@@ -26,7 +26,7 @@ switch (config.persistence) {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             dbName: config.mongoDBName
-        }, () => console.log('Mongo connected'))
+        }, () => console.log("mongo connected"))
                 
         const { default: UserMongo } = await import('./mongo/users.mongo.js')
         const { default: ProductMongo } = await import('./mongo/products.mongo.js')

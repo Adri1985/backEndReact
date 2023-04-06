@@ -6,7 +6,7 @@ class MessageManager{
     }
     addMsg = async(message)=>{
         const result = await this.messageService.create(message)
-        console.log("result del chat", result)
+        
     }
 
 }
