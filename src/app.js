@@ -22,7 +22,7 @@ import errorHandler from './middlewares/error.js'
 
 import loggerRouter from './routes/loggerTest.router.js'
 
-import { addLogger } from './utils/logger.js'
+
 
 
 import {Server} from 'socket.io'
@@ -76,7 +76,7 @@ app.use('/api/products',productsRouter)
 app.use('/api/carts', cartRouter)
 //app.use('/api/pets', petsRouter)
 app.use(errorHandler)
-app.use(addLogger)
+
 
 
 

@@ -6,14 +6,17 @@ const customLevelsOptions ={
         error:1,
         warning:2,
         info:3,
-        debut:4
+        debug:4,
+        http:5
+
     },
     colors:{
         fatal:'red',
         error:'orange',
         warning:'yellow',
         info:'blue',
-        debut:'white'
+        debug:'white',
+        http:'green'
     }
 }
 
@@ -30,8 +33,14 @@ const logger = winston.createLogger({
 })
 
 export const addLogger = (req,res,next)=>{
-    console.log("entra al logger")
-    req.logger = logger
-    req.logger.http(`${req.method} on ${req.url} - ${new Date().toLocaleDateString()}`)
+    try{
+        console.log("entra al logger")
+        req.logger = logger
+        req.logger.http(`${req.method} on ${req.url} - ${new Date().toLocaleDateString()}`)
+    }
+    catch(e){
+        console.log(e)
+    }
+   
     next()
 }
