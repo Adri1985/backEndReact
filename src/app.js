@@ -38,8 +38,8 @@ const swaggerOptions = {
     definition: {
         openapi: '3.0.1',
         info:{
-            title: "Documentacion Backend ",
-            description:" Esta documentacion es de usuarios"
+            title: "Backend Documentation for e HQ ",
+            description:"This documentation list all the APIS under e HQ backend project"
         }
     },
     apis: [`${__dirname}/docs/**/*.yaml`]
