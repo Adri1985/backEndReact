@@ -22,6 +22,9 @@ import errorHandler from './middlewares/error.js'
 
 import loggerRouter from './routes/loggerTest.router.js'
 
+import swaggerJSDoc from 'swagger-jsdoc'
+import swaggerUiExpress from 'swagger-ui-express'
+
 
 
 
@@ -31,10 +34,24 @@ import cors from 'cors'
 
 
 
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.1',
+        info:{
+            title: "Documentacion Backend ",
+            description:" Esta documentacion es de usuarios"
+        }
+    },
+    apis: [`${__dirname}/docs/**/*.yaml`]
+
+}
+
+const specs = swaggerJSDoc(swaggerOptions)
 const app = express()
 const URI = "mongodb+srv://ecommerce_main:ehq@ecommerce.iv6wj6x.mongodb.net"
 const DB_NAME = 'test'
 
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use('/static', express.static('public'))

@@ -20,6 +20,9 @@
     "passport-local": "^1.0.0",
     "querystring": "^0.2.1",
     "socket.io": "^4.5.4",
+    "swagger": "^0.7.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.2",
     "winston": "^3.8.2"
   },
   "scripts": {
