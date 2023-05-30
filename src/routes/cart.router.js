@@ -2,13 +2,15 @@ import { response, Router } from 'express'
 
 import mongoose from 'mongoose'
 
-import {getAll, getOne, createOne, updateOne, addProductToCart, deleteProductFromCart, updateProductsOnCart, updateProductQuantity, deleteOne} from '../controllers/cart.controllers.js'
+import {getOnePopulate,getAll, getOne, createOne, updateOne, addProductToCart, deleteProductFromCart, updateProductsOnCart, updateProductQuantity, deleteOne} from '../controllers/cart.controllers.js'
 
 const router = Router() 
 
 router.get('/', getAll)
 
 router.get('/:id', getOne)
+
+router.get('/populate/:id', getOnePopulate)
 
 router.post('/', createOne)
 

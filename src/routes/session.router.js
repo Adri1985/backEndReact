@@ -38,27 +38,50 @@ router.get('/login', (req, res)=>{
 //API para login usando estrategia JWT. Devuelve el token generado a traves de la cookie especificada en JWT_COOKIE_NAME
 router.post('/login', passport.authenticate('login'), async(req,res)=>{
     
+    console.log("entra al login", req.user)
     
     if(!req.user) {
         return res.status(400).send({status: 'error', error:'Invalid Credentials'})
     }
-    const token = generateToken(req.user)    
+    const token = generateToken(req.user)  
+    console.log("Token", token)  
     
     res.send({message: "Logged in successfully", token: token, user: req.user})
     //res.json(req.user)
 }
 )
 
+// API para generar link de recuperacion de contrasena
+
+router.post('/recover', async(req,res)=>{
+    console.log("recover", req.body)
+    if(!req.body.email){
+        return res.status(400).send({status: 'error', error:'Invalid Credentials'})
+    }
+
+    const token = generateToken(req.body.email)
+    console.log(token)
+    console.log(req.user)
+    res.send({token: token})
+})
+
+// API para cambiar la contrasena
+
+router.post('/passwordchange/:token',(req,res)=>{
+    const {token} = req.params
+    console.log('token', token)
+    
+})
+
 //cerrar sesion
-router.get('/logout', (req,res)=>{
+router.post('/logout', (req,res)=>{
     req.session.destroy(err =>{
         if(err) {
             
-            res.status(500).render('erros/base', {error:err})
+            res.status(500).send({payload:'error en logout'})
         }
         else {
-            
-            res.redirect('/api/session/login')
+            res.send({payload:'Successfully logged out'})
         } 
     })
 })

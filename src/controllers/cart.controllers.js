@@ -16,6 +16,14 @@ export const getOne= async(req,res)=>{
     res.json(result)
 }
 
+export const getOnePopulate= async(req,res)=>{
+    
+    const cid = req.params.id
+    
+    const result = await cartManager.getOnePopulate(cid)
+    res.json(result)
+}
+
 export const createOne=async(req,res)=>{
     
     const result = await cartManager.createOne()
@@ -39,9 +47,11 @@ export const addProductToCart = async(req,res)=>{
 }
 
 export const deleteProductFromCart = async(req,res)=>{
+    console.log("delete product from cart")
     const cid = req.params.cid
     const pid = req.params.pid
-    const result = await cartManager.deleteProductFromCart(cid, pid)
+    console.log(`CID ${cid} PID ${pid}`)
+    const result = await cartManager.deleteProdFromCart(cid, pid)
     res.json(result)
 }
 

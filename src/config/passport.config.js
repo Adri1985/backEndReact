@@ -62,6 +62,7 @@ const initializatePassport = ()=>{
                 
                 return done(null, false)
             }
+            console.log("Crea user")
 
             const newUser = {
                 first_name,
@@ -71,9 +72,9 @@ const initializatePassport = ()=>{
                 password: createHash(password),
                 role
             }
-            
+            console.log("antes de creater user service")
             const result = await UserService.create(newUser)
-            
+            console.log("despues de create user service", result)
             return done(null, result)
         } catch (error) {
             return done("[LOCAL] Error al obtener user " + error)

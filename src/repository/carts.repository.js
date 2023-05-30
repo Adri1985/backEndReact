@@ -15,6 +15,11 @@ export default class CartRepository {
         return await this.dao.getOne(id)
     }
 
+    getOnePopulate = async(id)=>{
+        
+        return await this.dao.getOnePopulate(id)
+    }
+
     updateOne = async(id, updCart)=>{
         return await this.dao.updateOne(id, updCart)
     }

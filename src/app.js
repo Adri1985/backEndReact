@@ -88,8 +88,8 @@ app.use('/api/mockingproducts',mockingProductsRouter)
 
 //app.use('/api/products',productsRouter)
 
-//app.use('/api/products',passportCall('jwt'),productsRouter)
-app.use('/api/products',productsRouter)
+app.use('/api/products',passportCall('jwt'),productsRouter)
+//app.use('/api/products',productsRouter)
 app.use('/api/carts', cartRouter)
 //app.use('/api/pets', petsRouter)
 app.use(errorHandler)

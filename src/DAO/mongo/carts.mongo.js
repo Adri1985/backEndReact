@@ -36,6 +36,11 @@ export default class Cart{
         const result = await CartModel.findOne({_id: mongooseCartID}).lean().exec()
         return result
     }
+    getOnePopulate = async(id)=>{
+        const mongooseCartID = mongoose.Types.ObjectId(id)
+        const result = await CartModel.findOne({_id: mongooseCartID}).populate('products.product').lean().exec()
+        return result
+    }
 
     deleteOne = async(id)=>{
         const result = await CartModel.deleteOne({_id:id})

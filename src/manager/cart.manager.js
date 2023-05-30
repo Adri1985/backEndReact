@@ -38,9 +38,15 @@ class CartManager{
         const result = await this.cartService.getOne(id) 
         return result
     }
+    getOnePopulate = async(id) => {
+        
+        const result = await this.cartService.getOnePopulate(id) 
+        return result
+    }
 
     deleteProdFromCart= async(cartID, productID) =>{
-        const newCart = this.getOne(cartID)
+        const newCart = await this.cartService.getOne(cartID)
+        console.log("new Cart", newCart)
         if (newCart == undefined){
             return({error:`Cart ${cartID} not found`, payload:{}})
         }
@@ -48,6 +54,7 @@ class CartManager{
             const cartProductsFiltered = newCart.products.filter(prod => prod.product != productID)
             newCart.products=cartProductsFiltered
             const result = await this.updateOne(cartID, newCart)
+            console.log("result del delete", result)
             return result
         }
     }
