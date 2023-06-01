@@ -1,10 +1,12 @@
 import {Router} from 'express'
 
-import {getStores, getStoreByID, createStore, addProduct} from '../controllers/stores.controllers.js'
+import {getStores, getStoreByID, createStore, addProduct, getStoreProducts} from '../controllers/stores.controllers.js'
 
 const router = Router()
 
 router.get('/', getStores)
+
+router.get('/storeProducts', getStoreProducts)
 
 router.get('/:sid', getStoreByID)
 

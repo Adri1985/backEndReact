@@ -6,7 +6,21 @@ export const getStores = async(req,res)=>{
     
     const result = await storeService.get()
     if (!result) return res.status(500).send({status:'error', error:'error getting stores'})
-    res.json({status:'succes', result:{result}})
+    res.json({products:result[0].products})
+}
+
+export const getStoreProducts = async(req,res)=>{
+    console.log("entra")
+    const result = await storeService.get()
+    const storeProducts = result[0]
+    const products =[]
+    for (let i=0;i<storeProducts.products.length; i++){
+        storeProducts.products[i].product.stock = storeProducts.products[i].quantity
+        console.log(storeProducts.products[i].quantity)
+        products.push(storeProducts.products[i].product)
+
+    }
+    res.json({products, user: req.user})
 }
 
 export const getStoreByID = async(req,res)=>{

@@ -8,8 +8,7 @@ export default class Order {
     }
 
     create = async(data) => {
-        await OrderModel.create(data)
-        return true
+        return await OrderModel.create(data)
     }
 
     getOneByID = async(id) => {

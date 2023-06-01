@@ -25,8 +25,11 @@ export default class User {
         return await UserModel.findOne({ email }).lean().exec()
     }
 
-    updateUser = async(id, store)=>{
-        const result = await StoreModel.updateOne({_id: id}, {$set: store})
+    updateUser = async(id, updOrders)=>{
+        console.log("id", id)
+        console.log("orders", updOrders)
+        const result = await UserModel.updateOne({_id: id}, {$set: {orders:updOrders}})
+        console.log("result", result)
         return result
 
     }

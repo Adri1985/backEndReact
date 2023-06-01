@@ -4,7 +4,7 @@ export default class Store {
     constructor() {}
 
     get = async() => {
-        return await StoreModel.find().lean().exec()
+        return await StoreModel.find().populate('products.product').lean().exec()
     }
 
     create = async(data) => {
